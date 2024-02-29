@@ -4,7 +4,7 @@
 <div class="container my-3">
     <div class="d-flex justify-content-between my-3">
         <h5>Permissions</h5>
-        <a href="{{ route('permission.create') }}" class="btn btn-sm btn-primary d-block">
+        <a href="{{ route('permissions.create') }}" class="btn btn-sm btn-primary d-block">
             <i class="fas fa-plus me-2"></i>
             Create
         </a>
@@ -24,9 +24,9 @@
                     <td>{{ ++$key }}</td>
                     <td>{{ $p->name }}</td>
                     <td>
-                        <a href="{{ route('permission.edit', $p->id) }}" class="btn btn-sm btn-success me-2"><i class="fas fa-pen-to-square"></i></a>
+                        <a href="{{ route('permissions.edit', $p->id) }}" class="btn btn-sm btn-success me-2"><i class="fas fa-pen-to-square"></i></a>
                         <a href="" onclick="event.preventDefault(); document.getElementById('deletePermission-{{ $p->id }}').submit();" class="btn btn-sm btn-danger me-2"><i class="fas fa-trash"></i></a>
-                        <form class="d-none" id="deletePermission-{{ $p->id }}" action="{{ route('permission.destroy', $p->id) }}" method="post">
+                        <form class="d-none" id="deletePermission-{{ $p->id }}" action="{{ route('permissions.destroy', $p->id) }}" method="post">
                             @csrf
                             @method('DELETE')
                         </form>

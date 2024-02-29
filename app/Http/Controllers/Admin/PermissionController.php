@@ -15,7 +15,7 @@ class PermissionController extends Controller
     {
         if (auth()->user()->can("list permissions")) {
             $permissions = Permission::latest()->get();
-            return view('backend.user_management.permission.index', compact('permissions'));
+            return view('backend.users.permission.index', compact('permissions'));
         }else{
             abort(403,'You have not authorized');
         }
@@ -27,7 +27,7 @@ class PermissionController extends Controller
     public function create()
     {
         if (auth()->user()->can('create permissions')) {
-            return view('backend.user_management.permission.create');
+            return view('backend.users.permission.create');
         }else{
             abort(403,'You have not authorized.');
         }
@@ -66,7 +66,7 @@ class PermissionController extends Controller
     public function edit(Permission $permission)
     {
         if (auth()->user()->can('edit permissions')) {
-            return view('backend.user_management.permission.edit', compact('permission'));
+            return view('backend.users.permission.edit', compact('permission'));
         }else{
             abort(403,'Forbidden');
         }

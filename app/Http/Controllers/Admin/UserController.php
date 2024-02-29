@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -21,9 +22,9 @@ class UserController extends Controller
                 $query->where('name', 'user');
             })
             ->latest()
-            ->get();
+            ->paginate(5);
             // return $users;
-            return view('backend.user_management.user.index', compact('users'));
+            return view('backend.users.user.index', compact('users'));
         }else{
             abort(403, 'You have not authorized.');
         }
@@ -34,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.users.user.create');
     }
 
     /**
@@ -42,7 +43,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+        ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        $user->assignRole('user');
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -60,7 +72,7 @@ class UserController extends Controller
     {
         if(Auth::user()->hasPermissionTo('edit users')){
             $roles = Role::latest()->get();
-            return view('backend.user_management.user.edit', compact('user', 'roles'));
+            return view('backend.users.user.edit', compact('user', 'roles'));
         }else{
             abort(403);
         }
@@ -81,7 +93,7 @@ class UserController extends Controller
                 'email'=> $request->email ?? $user->email
             ]);
             $user->roles()->sync($request->roles);
-            return redirect(route('user.index'))->with('success','User Updated.');
+            return redirect(route('users.index'))->with('success','User Updated.');
 
         }else{
             abort(403);
@@ -93,6 +105,10 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(Auth::user()->hasPermissionTo('delete users')){
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect(route('users.index'))->with('success','User Deleted.');
+        }
     }
 }

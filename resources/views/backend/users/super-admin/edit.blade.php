@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h5 class="mb-4">Edit Super Admin</h5>
-            <form action="{{ route('super-admin.update', $superAdmin->id) }}" method="POST">
+            <form action="{{ route('super-admins.update', $superAdmin->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">

@@ -29,11 +29,18 @@ class UserSeeder extends Seeder
         $admin->save();
         $admin->assignRole('admin');
 
-        $user = new User();
-        $user->name = 'User';
-        $user->email = 'user@gmail.com';
-        $user->password = Hash::make('12345678');
-        $user->save();
-        $user->assignRole('user');
+        $num = 20;
+
+        for ($i = 0; $i < $num; $i++) {
+            // Create a new instance of the User model for each user
+            $user = new User([
+                'name' => 'User' . $i,
+                'email' => 'user' . $i . '@gmail.com',
+                'password' => Hash::make('12345678'),
+            ]);
+        
+            $user->save();
+            $user->assignRole('user');
+        }
     }
 }

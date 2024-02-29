@@ -23,7 +23,7 @@ class SuperAdminController extends Controller
             ->latest()
             ->get();
             // return $users;
-            return view('backend.user_management.super-admin.index', compact('users'));
+            return view('backend.users.super-admin.index', compact('users'));
         }else{
             abort(403, 'You have not authorized.');
         }
@@ -34,7 +34,12 @@ class SuperAdminController extends Controller
      */
     public function create()
     {
-        //
+        if(Auth::user()->hasPermissionTo("create super_admins"))
+        {
+            return view();
+        }else{
+            abort(403, 'You have not authorized.');
+        }
     }
 
     /**
@@ -61,7 +66,7 @@ class SuperAdminController extends Controller
         if(Auth::user()->hasPermissionTo('edit super_admins')){
             $superAdmin = User::find($id);
             $roles = Role::latest()->get();
-            return view('backend.user_management.super-admin.edit', compact('superAdmin', 'roles'));
+            return view('backend.users.super-admin.edit', compact('superAdmin', 'roles'));
         }else{
             abort(403);
         }

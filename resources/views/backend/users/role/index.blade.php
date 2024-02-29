@@ -4,7 +4,7 @@
 <div class="container my-3">
     <div class="d-flex justify-content-between my-3">
         <h5>Roles</h5>
-        <a href="{{ route('role.create') }}" class="btn btn-sm btn-primary d-block">
+        <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary d-block">
             <i class="fas fa-plus me-2"></i>
             Create
         </a>
@@ -24,10 +24,10 @@
                     <td>{{ ++$key }}</td>
                     <td>{{ Illuminate\Support\Str::title($r->name) }}</td>
                     <td>
-                        <a href="{{ route('role.show', $r->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                        <a href="{{ route('role.edit', $r->id) }}" class="btn btn-sm btn-success me-2"><i class="fas fa-pen-to-square"></i></a>
+                        <a href="{{ route('roles.show', $r->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                        <a href="{{ route('roles.edit', $r->id) }}" class="btn btn-sm btn-success me-2"><i class="fas fa-pen-to-square"></i></a>
                         <a href="" onclick="event.preventDefault(); document.getElementById('deleteRole-{{ $r->id }}').submit();" class="btn btn-sm btn-danger me-2"><i class="fas fa-trash"></i></a>
-                        <form class="d-none" id="deleteRole-{{ $r->id }}" action="{{ route('role.destroy', $r->id) }}" method="post">
+                        <form class="d-none" id="deleteRole-{{ $r->id }}" action="{{ route('roles.destroy', $r->id) }}" method="post">
                             @csrf
                             @method('DELETE')
                         </form>

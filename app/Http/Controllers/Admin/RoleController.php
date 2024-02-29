@@ -17,7 +17,7 @@ class RoleController extends Controller
     {
         if (auth()->user()->can("list roles")) {
             $roles = Role::all();
-            return view('backend.user_management.role.index', compact('roles'));
+            return view('backend.users.role.index', compact('roles'));
         }else{
             return abort(403);
         }
@@ -30,7 +30,7 @@ class RoleController extends Controller
     {
         if (auth()->user()->can("create roles")) {
             $permissions = Permission::all();
-            return view('backend.user_management.role.create', compact('permissions'));
+            return view('backend.users.role.create', compact('permissions'));
         }else{
             return abort(403);
         }
@@ -62,7 +62,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return view("backend.user_management.role.show", compact("role"));
+        return view("backend.users.role.show", compact("role"));
     }
 
     /**
@@ -72,7 +72,7 @@ class RoleController extends Controller
     {
         if (auth()->user()->can("edit roles")) {
             $permissions = Permission::all();
-            return view('backend.user_management.role.edit', compact("role", "permissions"));
+            return view('backend.users.role.edit', compact("role", "permissions"));
         }else{
             abort(403);
         }

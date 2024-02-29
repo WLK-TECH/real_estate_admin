@@ -9,13 +9,13 @@
 <div class="container my-3">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h5 class="mb-4">Edit User</h5>
-            <form action="{{ route('user.update', $user->id) }}" method="POST">
+            <h5 class="mb-4">Edit Admin</h5>
+            <form action="{{ route('admins.update', $admin->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
                     <label for="" class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name" value="{{ $user->name }}" placeholder="Enter Name">
+                    <input type="text" class="form-control" name="name" value="{{ $admin->name }}" placeholder="Enter Name">
                     @error('name')
                     <span class="d-block text-danger">*{{ $message }}</span>
                     @enderror
@@ -23,7 +23,7 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Email</label>
                     <input type="email" class="form-control" name="email" value="" placeholder="Enter Email">
-                    <small class="d-block">Old Email - {{ $user->email }}</small>
+                    <small class="d-block">Old Email - {{ $admin->email }}</small>
                     @error('email')
                     <span class="d-block text-danger">*{{ $message }}</span>
                     @enderror
@@ -33,7 +33,7 @@
                     <select class="js-example-basic-multiple form-control" name="roles[]" multiple="multiple">
                         @foreach ($roles as $role)
                             @php
-                                $selected = $user->roles->contains('id', $role->id) ? 'selected' : '';
+                                $selected = $admin->roles->contains('id', $role->id) ? 'selected' : '';
                             @endphp
                             <option value="{{ $role->id }}" {{ $selected }}>{{ $role->name }}</option>
                         @endforeach

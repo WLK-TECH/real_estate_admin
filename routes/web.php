@@ -17,12 +17,12 @@ Route::get('/', function () {
 Route::middleware(['auth', 'role:super admin|admin'])->group(function () {
     Route::get('/dashboard', [HomeController::class,'index'])->name('home');
 
-    Route::resource('/super-admin', SuperAdminController::class);
-    Route::resource('/admin', AdminController::class);
-    Route::resource('/user', UserController::class);
+    Route::resource('/super-admins', SuperAdminController::class);
+    Route::resource('/admins', AdminController::class);
+    Route::resource('/users', UserController::class);
 
-    Route::resource('/role', RoleController::class);
-    Route::resource('/permission', PermissionController::class);
+    Route::resource('/roles', RoleController::class);
+    Route::resource('/permissions', PermissionController::class);
 });
 
 

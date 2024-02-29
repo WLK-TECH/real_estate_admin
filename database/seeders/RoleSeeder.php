@@ -19,15 +19,25 @@ class RoleSeeder extends Seeder
         $superAdmin = Role::create(["name"=> "super admin", "guard_name"=> "web"]);
 
         $list_super_admins = Permission::create(["name"=> "list super_admins"]);
+        $create_super_admins = Permission::create(["name"=> "create super_admins"]);
+        $edit_super_admins = Permission::create(["name"=> "edit super_admins"]);
+        $delete_super_admins = Permission::create(["name"=> "delete super_admins"]);
+
         $list_admins = Permission::create(["name"=> "list admins"]);
+        $create_admins = Permission::create(["name"=> "create admins"]);
+        $edit_admins = Permission::create(["name"=> "edit admins"]);
+        $delete_admins = Permission::create(["name"=> "delete admins"]);
+
         $list_users = Permission::create(["name"=> "list users"]);
         $create_users = Permission::create(["name"=> "create users"]);
         $edit_users = Permission::create(["name"=> "edit users"]);
         $delete_users = Permission::create(["name"=> "delete users"]);
+
         $list_roles = Permission::create(["name"=> "list roles"]);
         $create_roles = Permission::create(["name"=> "create roles"]);
         $edit_roles = Permission::create(["name"=> "edit roles"]);
         $delete_roles = Permission::create(["name"=> "delete roles"]);
+
         $list_permissions = Permission::create(["name"=> "list permissions"]);
         $create_permissions = Permission::create(["name"=> "create permissions"]);
         $edit_permissions = Permission::create(["name"=> "edit permissions"]);
@@ -35,7 +45,13 @@ class RoleSeeder extends Seeder
 
         $superAdminPermissions = [
             $list_super_admins,
+            $create_super_admins,
+            $edit_super_admins,
+            $delete_super_admins,
             $list_admins,
+            $create_admins,
+            $edit_admins,
+            $delete_admins,
             $list_users,
             $create_users,
             $edit_users,

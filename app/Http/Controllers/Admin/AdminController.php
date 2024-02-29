@@ -24,7 +24,7 @@ class AdminController extends Controller
             ->latest()
             ->get();
             // return $users;
-            return view('backend.user_management.admin.index', compact('users', 'roles'));
+            return view('backend.users.admin.index', compact('users', 'roles'));
         }else{
             abort(403, 'You have not authorized.');
         }
@@ -62,7 +62,7 @@ class AdminController extends Controller
         if(Auth::user()->hasPermissionTo('edit admins')){
             $admin = User::find($id);
             $roles = Role::latest()->get();
-            return view('backend.user_management.admin.edit', compact('admin', 'roles'));
+            return view('backend.users.admin.edit', compact('admin', 'roles'));
         }else{
             abort(403);
         }
@@ -84,7 +84,7 @@ class AdminController extends Controller
                 'email'=> $request->email ?? $superAdmin->email
             ]);
             $superAdmin->roles()->sync($request->roles);
-            return redirect(route('admin.index'))->with('success','Admin Updated.');
+            return redirect(route('admins.index'))->with('success','Admin Updated.');
 
         }else{
             abort(403);
@@ -96,6 +96,12 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(Auth::user()->hasPermissionTo('delete admins')){
+            $admin = User::find($id);
+            $admin->delete();
+            return redirect(route('admins.index'))->with('success','Admin Deleted.');
+        }else{
+            abort(403);
+        }
     }
 }

@@ -4,7 +4,7 @@
 <div class="container my-3">
     <div class="d-flex justify-content-between my-3">
         <h5>{{ Illuminate\Support\Str::title($role->name) }} with Permissions</h5>
-        <a href="{{ route('role.index') }}" class="btn btn-sm btn-primary d-block">
+        <a href="{{ route('roles.index') }}" class="btn btn-sm btn-primary d-block">
             <i class="fas fa-arrow-left mr-2"></i>
             Back
         </a>

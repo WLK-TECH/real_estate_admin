@@ -39,27 +39,31 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">User Components:</h6>
-                        <a class="collapse-item" href="{{ route('super-admin.index') }}">
+                        @role('super admin')
+                        <a class="collapse-item" href="{{ route('super-admins.index') }}">
                             <i class="fas fa-users mr-2"></i>
                             Super Admins
                         </a>
-                        <a class="collapse-item" href="{{ route('admin.index') }}">
+                        @endrole
+                        <a class="collapse-item" href="{{ route('admins.index') }}">
                             <i class="fas fa-users mr-2"></i>
                             Admins
                         </a>
 
-                        <a class="collapse-item" href="{{ route('user.index') }}">
+                        <a class="collapse-item" href="{{ route('users.index') }}">
                             <i class="fas fa-users mr-2"></i>
                             Users
                         </a>
-                        <a class="collapse-item" href="{{ route('role.index') }}">
+                        @role('super admin')
+                        <a class="collapse-item" href="{{ route('roles.index') }}">
                             <i class="fas fa-graduation-cap mr-2"></i>
                             Roles
                         </a>
-                        <a class="collapse-item" href="{{ route('permission.index') }}">
+                        <a class="collapse-item" href="{{ route('permissions.index') }}">
                             <i class="fas fa-warning mr-2"></i>
                             Permissions
                         </a>
+                        @endrole
                     </div>
                 </div>
             </li>
