@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
@@ -35,7 +36,12 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        if(Auth::user()->hasPermissionTo("create admins"))
+        {
+            return view('backend.users.admin.create');
+        }else{
+            abort(403, 'You have not authorized.');
+        }
     }
 
     /**
@@ -43,7 +49,23 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Auth::user()->hasPermissionTo("create admins"))
+        {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:8',
+            ]);
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $user->assignRole('admin');
+            return redirect()->route('admins.index')->with('success', 'Admin created successfully.');
+        }else{
+            abort(403, 'You have not authorized.');
+        }
     }
 
     /**
@@ -51,7 +73,7 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -53,7 +53,7 @@ class RoleController extends Controller
             ]);
 
             $role->syncPermissions($request->permissions);
-            return redirect()->route("role.index")->with("success","New Role Created.");
+            return redirect()->route("roles.index")->with("success","New Role Created.");
         }
     }
 
@@ -91,7 +91,7 @@ class RoleController extends Controller
                 "name"=> $request->name
             ]);
             $role->syncPermissions($request->permissions);
-            return redirect()->route("role.index")->with("success","Role Updated.");
+            return redirect()->route("roles.index")->with("success","Role Updated.");
         }else{
             abort(403);
         }
@@ -104,7 +104,7 @@ class RoleController extends Controller
     {
         if (auth()->user()->can("delete roles")) {
             $role->delete();
-            return redirect()->route("role.index")->with("success","Role Deleted.");
+            return redirect()->route("roles.index")->with("success","Role Deleted.");
         }else{
             abort(403);
         }

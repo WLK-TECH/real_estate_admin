@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -46,7 +46,7 @@ class PermissionController extends Controller
                 'name'=> $request->name,
                 'guard_name' => "web"
             ]);
-            return redirect()->route('permission.index')->with('success','New Permission Created');
+            return redirect()->route('permissions.index')->with('success','New Permission Created');
         }else{
             abort(403,'Forbidden');
         }
@@ -85,7 +85,7 @@ class PermissionController extends Controller
                 'name'=> $request->name,
                 'guard_name' => "web"
             ]);
-            return redirect()->route("permission.index")->with("success","Permission Updated");
+            return redirect()->route("permissions.index")->with("success","Permission Updated");
         }else{
             abort(403,'Forbidden');
         }
@@ -98,7 +98,7 @@ class PermissionController extends Controller
     {
         if (auth()->user()->can('delete permissions')) {
             $permission->delete();
-            return redirect()->route('permission.index')->with('success','Permission Deleted');
+            return redirect()->route('permissions.index')->with('success','Permission Deleted');
         }else{
             abort(403,'Forbidden');
         }

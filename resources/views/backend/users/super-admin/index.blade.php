@@ -5,10 +5,10 @@
     <div class="card border-none shadow p-3">
         <div class="d-flex justify-content-between my-3">
             <h5>Super Admins</h5>
-            {{-- <a href="{{ route('role-permission.create') }}" class="btn btn-sm btn-primary d-block">
+            <a href="{{ route('super-admins.create') }}" class="btn btn-sm btn-primary d-block">
                 <i class="fas fa-plus me-2"></i>
                 Create
-            </a> --}}
+            </a>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -36,7 +36,13 @@
                         </td>
                         <td>
                             <a href="{{ route('super-admins.edit', $user->id) }}" class="btn btn-sm btn-success me-2"><i class="fas fa-pen-to-square"></i></a>
-                            <a href="{{ route('super-admins.destroy', $user->id) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                            <form class="d-inline" action="{{ route('super-admins.destroy', $user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

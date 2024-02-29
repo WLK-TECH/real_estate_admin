@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -71,7 +71,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         if(Auth::user()->hasPermissionTo('edit users')){
-            $roles = Role::latest()->get();
+            $roles = Role::where('name', '!=', 'super admin')->get();
             return view('backend.users.user.edit', compact('user', 'roles'));
         }else{
             abort(403);

@@ -39,7 +39,13 @@
                             <a href="{{ route('admins.edit', $user->id) }}" class="btn btn-sm btn-success me-2"><i class="fas fa-pen-to-square"></i></a>
                             @endcan
                             @can('delete admins')
-                            <a href="{{ route('admins.destroy', $user->id) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                            <form class="d-inline" action="{{ route('admins.destroy', $user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                             @endcan
                         </td>
                     </tr>

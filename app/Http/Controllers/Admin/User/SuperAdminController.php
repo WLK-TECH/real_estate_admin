@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class SuperAdminController extends Controller
@@ -36,7 +37,7 @@ class SuperAdminController extends Controller
     {
         if(Auth::user()->hasPermissionTo("create super_admins"))
         {
-            return view();
+            return view('backend.users.super-admin.create');
         }else{
             abort(403, 'You have not authorized.');
         }
@@ -47,7 +48,23 @@ class SuperAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Auth::user()->hasPermissionTo("create super_admins"))
+        {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|min:8',
+            ]);
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            $user->assignRole('super admin');
+            return redirect()->route('super-admins.index')->with('success', 'Super Admin created successfully.');
+        }else{
+            abort(403, 'You have not authorized.');
+        }
     }
 
     /**
@@ -88,7 +105,7 @@ class SuperAdminController extends Controller
                 'email'=> $request->email ?? $superAdmin->email
             ]);
             $superAdmin->roles()->sync($request->roles);
-            return redirect(route('super-admin.index'))->with('success','Super Admin Updated.');
+            return redirect(route('super-admins.index'))->with('success','Super Admin Updated.');
 
         }else{
             abort(403);
@@ -100,6 +117,12 @@ class SuperAdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(Auth::user()->hasPermissionTo('delete super_admins')){
+            $superAdmin = User::find($id);
+            $superAdmin->delete();
+            return redirect(route('super-admins.index'))->with('success','Super Admin Deleted.');
+        }else{
+            abort(403);
+        }
     }
 }

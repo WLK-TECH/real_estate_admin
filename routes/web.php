@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\User\AdminController;
+use App\Http\Controllers\Admin\User\PermissionController;
+use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Admin\User\SuperAdminController;
+use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\SuperAdminController;
-use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 
